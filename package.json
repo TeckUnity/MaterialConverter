@@ -1,0 +1,17 @@
+{
+    "name": "com.ltk.materialconverter",
+    "displayName": "Material Converter",
+    "version": "0.0.1",
+    "unity": "2019.1",
+    "description": "Allows you to convert materials by remapping shader properties.",
+    "keywords": [
+        "SRP",
+        "HDRP",
+        "LWRP",
+        "URP",
+        "shaders",
+        "materials",
+        "unity"
+    ],
+    "category": "Unity"
+}
