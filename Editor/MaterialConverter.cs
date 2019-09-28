@@ -202,67 +202,67 @@ public class MaterialConverterWindow : EditorWindow
                                 }
                             }
                             EditorGUI.indentLevel--;
-                        }
-                    }
-                    using (var hScope = new EditorGUILayout.HorizontalScope(EditorStyles.helpBox))
-                    {
-                        GUILayout.FlexibleSpace();
-                        if (GUILayout.Button(new GUIContent("Material List", "List of materials that will be converted")))
-                        {
-                            var materials = AssetDatabase.FindAssets("t:Material").Select(guid => AssetDatabase.LoadAssetAtPath<Material>(AssetDatabase.GUIDToAssetPath(guid))).Where(m => m.shader == shaderMappings[i].sourceShader);
-                            MaterialConverterListWindow.Open(materials.ToArray());
-                        }
-                        if (GUILayout.Button("Convert Materials"))
-                        {
-                            var targetShader = shaderMappings[i].targetShader;
-                            var materials = AssetDatabase.FindAssets("t:Material").Select(guid => AssetDatabase.LoadAssetAtPath<Material>(AssetDatabase.GUIDToAssetPath(guid))).Where(m => m.shader == shaderMappings[i].sourceShader);
-                            foreach (var mat in materials)
+                            using (var hScope = new EditorGUILayout.HorizontalScope(EditorStyles.helpBox))
                             {
-                                foreach (var key in shaderMappings[i].propertyMapping.Keys)
+                                GUILayout.FlexibleSpace();
+                                if (GUILayout.Button(new GUIContent("Material List", "List of materials that will be converted")))
                                 {
-                                    switch (key.type)
-                                    {
-                                        case ShaderUtil.ShaderPropertyType.Color:
-                                            shaderMappings[i].propertyMapping[key].value = mat.GetColor(key.name);
-                                            break;
-                                        case ShaderUtil.ShaderPropertyType.Float:
-                                        case ShaderUtil.ShaderPropertyType.Range:
-                                            shaderMappings[i].propertyMapping[key].value = mat.GetFloat(key.name);
-                                            break;
-                                        case ShaderUtil.ShaderPropertyType.TexEnv:
-                                            shaderMappings[i].propertyMapping[key].value = mat.GetTexture(key.name);
-                                            break;
-                                        case ShaderUtil.ShaderPropertyType.Vector:
-                                            shaderMappings[i].propertyMapping[key].value = mat.GetVector(key.name);
-                                            break;
-                                    }
+                                    var materials = AssetDatabase.FindAssets("t:Material").Select(guid => AssetDatabase.LoadAssetAtPath<Material>(AssetDatabase.GUIDToAssetPath(guid))).Where(m => m.shader == shaderMappings[i].sourceShader);
+                                    MaterialConverterListWindow.Open(materials.ToArray());
                                 }
-                                mat.shader = shaderMappings[i].targetShader;
-                                foreach (var key in shaderMappings[i].propertyMapping.Keys)
+                                if (GUILayout.Button("Convert Materials"))
                                 {
-                                    switch (key.type)
+                                    var targetShader = shaderMappings[i].targetShader;
+                                    var materials = AssetDatabase.FindAssets("t:Material").Select(guid => AssetDatabase.LoadAssetAtPath<Material>(AssetDatabase.GUIDToAssetPath(guid))).Where(m => m.shader == shaderMappings[i].sourceShader);
+                                    foreach (var mat in materials)
                                     {
-                                        case ShaderUtil.ShaderPropertyType.Color:
-                                            // Debug.Log($"SetColor: {(Color)shaderMappings[i].propertyMapping[key].value}");
-                                            mat.SetColor(shaderMappings[i].propertyMapping[key].name, (Color)shaderMappings[i].propertyMapping[key].value);
-                                            break;
-                                        case ShaderUtil.ShaderPropertyType.Float:
-                                        case ShaderUtil.ShaderPropertyType.Range:
-                                            // Debug.Log($"SetFloat: {(float)shaderMappings[i].propertyMapping[key].value}");
-                                            mat.SetFloat(shaderMappings[i].propertyMapping[key].name, (float)shaderMappings[i].propertyMapping[key].value);
-                                            break;
-                                        case ShaderUtil.ShaderPropertyType.TexEnv:
-                                            // Debug.Log($"SetTexture: {(Texture)shaderMappings[i].propertyMapping[key].value}");
-                                            mat.SetTexture(shaderMappings[i].propertyMapping[key].name, (Texture)shaderMappings[i].propertyMapping[key].value);
-                                            break;
-                                        case ShaderUtil.ShaderPropertyType.Vector:
-                                            // Debug.Log($"SetVector: {(Vector4)shaderMappings[i].propertyMapping[key].value}");
-                                            mat.SetVector(shaderMappings[i].propertyMapping[key].name, (Vector4)shaderMappings[i].propertyMapping[key].value);
-                                            break;
+                                        foreach (var key in shaderMappings[i].propertyMapping.Keys)
+                                        {
+                                            switch (key.type)
+                                            {
+                                                case ShaderUtil.ShaderPropertyType.Color:
+                                                    shaderMappings[i].propertyMapping[key].value = mat.GetColor(key.name);
+                                                    break;
+                                                case ShaderUtil.ShaderPropertyType.Float:
+                                                case ShaderUtil.ShaderPropertyType.Range:
+                                                    shaderMappings[i].propertyMapping[key].value = mat.GetFloat(key.name);
+                                                    break;
+                                                case ShaderUtil.ShaderPropertyType.TexEnv:
+                                                    shaderMappings[i].propertyMapping[key].value = mat.GetTexture(key.name);
+                                                    break;
+                                                case ShaderUtil.ShaderPropertyType.Vector:
+                                                    shaderMappings[i].propertyMapping[key].value = mat.GetVector(key.name);
+                                                    break;
+                                            }
+                                        }
+                                        mat.shader = shaderMappings[i].targetShader;
+                                        foreach (var key in shaderMappings[i].propertyMapping.Keys)
+                                        {
+                                            switch (key.type)
+                                            {
+                                                case ShaderUtil.ShaderPropertyType.Color:
+                                                    // Debug.Log($"SetColor: {(Color)shaderMappings[i].propertyMapping[key].value}");
+                                                    mat.SetColor(shaderMappings[i].propertyMapping[key].name, (Color)shaderMappings[i].propertyMapping[key].value);
+                                                    break;
+                                                case ShaderUtil.ShaderPropertyType.Float:
+                                                case ShaderUtil.ShaderPropertyType.Range:
+                                                    // Debug.Log($"SetFloat: {(float)shaderMappings[i].propertyMapping[key].value}");
+                                                    mat.SetFloat(shaderMappings[i].propertyMapping[key].name, (float)shaderMappings[i].propertyMapping[key].value);
+                                                    break;
+                                                case ShaderUtil.ShaderPropertyType.TexEnv:
+                                                    // Debug.Log($"SetTexture: {(Texture)shaderMappings[i].propertyMapping[key].value}");
+                                                    mat.SetTexture(shaderMappings[i].propertyMapping[key].name, (Texture)shaderMappings[i].propertyMapping[key].value);
+                                                    break;
+                                                case ShaderUtil.ShaderPropertyType.Vector:
+                                                    // Debug.Log($"SetVector: {(Vector4)shaderMappings[i].propertyMapping[key].value}");
+                                                    mat.SetVector(shaderMappings[i].propertyMapping[key].name, (Vector4)shaderMappings[i].propertyMapping[key].value);
+                                                    break;
+                                            }
+                                        }
                                     }
+                                    shaderMappings[i] = new ShaderMapping(targetShader, this);
                                 }
                             }
-                            shaderMappings[i] = new ShaderMapping(targetShader, this);
                         }
                     }
                 }
