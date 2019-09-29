@@ -14,7 +14,7 @@ You will be presented with a list of shaders, and a dropdown for each where you 
 
 Then simply hit `Convert Materials`. The `Material List` button lets you preview the materials that will be converted.
 
-### Examples
+## Examples
 Converting from Custom Shader to LWRP/Lit:
 
 <img src="https://i.imgur.com/oGBFBq7.gif" width="49%" />
@@ -22,3 +22,7 @@ Converting from Custom Shader to LWRP/Lit:
 Converting from LWRP/Lit to Custom Shader:
 
 <img src="https://i.imgur.com/wASx57X.gif" width="49%" />
+
+## Todo
+* Save property mappings to an asset for future re-use
+* Automated conversion on import using the saved mappings
